@@ -1,0 +1,43 @@
+# 🔐 Environment variables
+.env
+
+# 🐍 Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🧪 Virtual environment
+.venv/
+venv/
+env/
+
+# 📦 Data folders (your heavy files)
+data/
+
+# 🎥 Media files
+*.mp4
+*.wav
+*.mp3
+*.avi
+*.mov
+
+# 📚 Large documents (optional — keep if needed)
+*.pdf
+
+# 🧠 ML / Vector DB files
+*.faiss
+*.pkl
+
+# 📝 Logs
+*.log
+
+# 🖥️ OS files
+.DS_Store
+Thumbs.db
+
+# 🧰 VS Code settings (optional)
+.vscode/
+
+# 🔒 Jupyter Notebook checkpoints
+.ipynb_checkpoints/
