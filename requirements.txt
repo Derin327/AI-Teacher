@@ -16,3 +16,4 @@ python-multipart
 faiss-cpu
 sentence-transformers
 pypdf
+rank-bm25

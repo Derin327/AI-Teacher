@@ -19,28 +19,43 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+import re
+
 def split_into_chunks(text: str, chunk_size: int = 700, overlap: int = 120):
     text = clean_text(text)
     if not text:
         return []
 
+    # Split text into sentences
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    
     chunks = []
-    start = 0
-    text_len = len(text)
+    current_chunk = ""
+    
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if not sentence:
+            continue
+            
+        if len(current_chunk) + len(sentence) <= chunk_size:
+            current_chunk += " " + sentence if current_chunk else sentence
+        else:
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+            
+            # If the single sentence is longer than chunk_size, just append it anyway
+            if len(sentence) > chunk_size:
+                chunks.append(sentence)
+                current_chunk = ""
+            else:
+                # To simulate overlap, we can optionally carry over the last sentence 
+                # but for simplicity in sentence chunking, starting fresh with the current sentence is usually fine.
+                current_chunk = sentence
 
-    while start < text_len:
-        end = min(start + chunk_size, text_len)
-        chunk = text[start:end].strip()
-
-        if len(chunk) > 80:
-            chunks.append(chunk)
-
-        if end == text_len:
-            break
-
-        start = max(0, end - overlap)
-
-    return chunks
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+        
+    return [c for c in chunks if len(c) > 80]
 
 
 def load_pdf_chunks(pdf_path: str):
